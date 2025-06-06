@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Login</title>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    </head>
+    <body>
+
+      <h1>Login</h1>
+      <hr>
+      <p>Hello ,<span id="name"> User</span>, Welcome to the secure login portal </p>
+      <footer>
+        <form id="form">
+          <input type="text" id="username">
+          <input type="password" id=pass">
+          <p color="red" id="form-error"></p>
+        </form>
+      </footer>
+      <script>
+        const passwordInput = document.getElementById("pass");
+        const usrInput = document.getElementById("username");
+
+        function sanitize(string) {
+        const map = {
+          '&': '&',
+          '<': '<',
+          '>': '>',
+          '"': '"',
+          "'": ''',
+          "/": '/',
+        };
+        const reg = /[&<>"'/]/ig;
+        return string.replace(reg, (match)=>(map[match]));
+        }
+
+        
+      </script>
+    </body>
+</html>
