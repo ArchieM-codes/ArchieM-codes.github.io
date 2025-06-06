@@ -3,6 +3,38 @@
     <head>
       <title>Login</title>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+       <style>
+            /* General form styling */
+            form {
+              display: flex;
+              flex-direction: column; /* Stack elements vertically */
+              width: 300px; /* Optional: Set a width for the form */
+              margin: 0 auto; /* Center the form horizontally */
+              gap: 1rem; /* Add spacing between elements */
+            }
+        
+            label {
+              font-weight: bold;
+            }
+        
+            input, textarea, button {
+              padding: 0.5rem;
+              font-size: 1rem;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+            }
+        
+            button {
+              background-color: #007BFF;
+              color: white;
+              border: none;
+              cursor: pointer;
+            }
+        
+            button:hover {
+              background-color: #0056b3;
+            }
+      </style>
     </head>
     <body>
 
@@ -10,19 +42,22 @@
       <hr>
       <p>Hello ,<span id="name"> User</span>, Welcome to the secure login portal </p>
       <footer>
-        <form id="form">
-            <label>Login form</label>
-          <input type="email" id="username">
+        <form id="form" onSubmit="handleSubmit(event)">
             <label>Email</label>
+          <input type="email" id="email">
+            <label>Password</label>
           <input type="password" id=pass">
-            <Label>Password</Label>
             <button type="submit">Submit </button>
           <p color="red" id="form-error"></p>
         </form>
+        <div id="results"></div>
       </footer>
       <script>
         const passwordInput = document.getElementById("pass");
-        const usrInput = document.getElementById("username");
+        const emailInput = document.getElementById("email");
+        const errText = document.getElementByid("form-error");
+        const results = document.getElementById("results");
+        const usrspan = document.getElementById("name");
 
         function sanitize(string) {
         const map = {
@@ -36,8 +71,13 @@
         const reg = /[&<>"'/]/ig;
         return string.replace(reg, (match)=>(map[match]));
         }
-
         
+        function handleSubmit(event){
+            const mailInput = sanitise(emailInput.value);
+            const passInput = sanitise(passwordInput.value);
+            
+            usrSpan.innerHTML = mailInput;
+        }
       </script>
     </body>
 </html>
