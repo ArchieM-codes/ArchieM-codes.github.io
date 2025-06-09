@@ -59,6 +59,53 @@
         const results = document.getElementById("results");
         const usrspan = document.getElementById("name");
 
+        
+        function handleLogin(email, password) {
+          const isRegistered = 'isRegistered';
+          const usrSpan = document.getElementById("name");
+          const errText = document.getElementById("form-error");
+          const form = document.getElementById("form");
+        
+          function check() {
+            if (localStorage.getItem(isRegistered) === null) {
+              return false;
+            } else {
+              return true;
+            }
+          }
+        
+          if (!check()) {
+            // User is not registered
+            localStorage.setItem(isRegistered, 'true');
+        
+            // Encrypt password
+            const encryptedPassword = CryptoJS.AES.encrypt(password, 'Skibbody').toString(); // Ensure you have CryptoJS library 
+            // Store email and encrypted password
+            localStorage.setItem('email', email);
+            localStorage.setItem('password', encryptedPassword);
+        
+            alert('Registration successful!');
+          } else {
+            // User is registered
+            const storedEmail = localStorage.getItem('email');
+            const storedPassword = localStorage.getItem('password');
+        
+            // Encrypt the user-given password
+            const encryptedPassword = CryptoJS.AES.encrypt(password, 'Skibbody').toString(); // Same secret key as above 
+        
+            // Check password and email
+            if (encryptedPassword === storedPassword && email === storedEmail) {
+              // Login successful
+              const username = email.substring(0, email.indexOf('@'));
+              usrSpan.textContent = username;
+              form.style.display = 'none'; // Hide the form
+            } else {
+              // Login failed
+              errText.textContent = 'Login failed. Incorrect email or password.';
+            }
+          }
+        }
+        
         function sanitize(string) {
         const map = {
           '&': '&',
@@ -75,8 +122,9 @@
         function handleSubmit(event){
             const mailInput = sanitise(emailInput.value);
             const passInput = sanitise(passwordInput.value);
+
+            handleLogin(mailInput, passInput);
             
-            usrSpan.innerHTML = mailInput;
         }
       </script>
     </body>
