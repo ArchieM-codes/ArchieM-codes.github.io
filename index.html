@@ -43,9 +43,9 @@
       <p>Hello ,<span id="name"> User</span>, Welcome to the secure login portal </p>
       <footer>
         <form id="form" onSubmit="handleSubmit(event)">
-            <label>Email</label>
+            <label for="email>Email</label>
           <input type="email" id="email">
-            <label>Password</label>
+            <label for="pass">Password</label>
           <input type="password" id=pass">
             <button type="submit">Submit </button>
           <p color="red" id="form-error"></p>
@@ -107,14 +107,14 @@
         }
         
         function sanitize(string) {
-        const map = {
-          '&': '&',
-          '<': '<',
-          '>': '>',
-          '"': '"',
-          "'": ''',
-          "/": '/',
-        };
+          const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;',
+            "/": '&#x2F;',
+          };
         const reg = /[&<>"'/]/ig;
         return string.replace(reg, (match)=>(map[match]));
         }
